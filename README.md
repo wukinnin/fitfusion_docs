@@ -1,5 +1,9 @@
 # Copy and paste
 
+Use https://www.claude.ai for best results
+
+---
+
 You are a researcher for our IT capstone project. You are to read, analyze, and understand in full `FITFUSION.md` and the accompanying `schema.sql`. `FITFUSION.md` is the gospel, and the sole source of truth of this project, so always default to this **Unless otherwise asked upon circumstancially.**
 
 Prove your understanding by providing a brief and comprehensive project detail overview.
