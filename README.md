@@ -764,18 +764,12 @@ ARE YOU SURE YOU WANT TO DELETE ACCOUNT? ALL DATA IS CLEARED AND DISASSOCIATES Y
 Admin Web Portal
 │
 ├── Login/Welcome Screen
-|   ├── [Check Is Verified]
-|   │   ├── Forget Password (Optional)
-|   │   └── Success → Dashboard
-|   |
-|   └── [Check Is Not Verified]
-|           ├── (Register Admin Process)
-|           └── Login (Check Is Verified)
+|   ├── Input Credentials
+|   └── Success → Dashboard
 | 
 └── Dashboard
     ├── Overview
-    │   ├── Total Users
-    │   └── Register Admin
+    │   └── Total Users
     |
     ├── Data Management
     │   ├── View Players
@@ -818,17 +812,12 @@ To manage the backend remotely and bypass using directly the Supabase website, w
 
 ## Login/Welcome Screen
 - Login page for admin users
+- Note: Admin creation on the web portal is impossible. Has to be manually created in the database. 
 
 ## Dashboard
 
 ### Overview
 - Shows total number count of users both for Admin and Players.
-
-**Register admin process**
-- The only way new admin accounts would be made is for an existing admin to register an email address and issue a temporary password via email.
-1. In the dashboard, Current admin will send email to incoming admin pending verification with temporary password
-2. In the login page, Login with unverified email by incoming admin will prompt verification via Email OTP code
-3. Incoming admin is forced to set a new password with a minimum of 10 characters.
 
 ### Data Management
 
