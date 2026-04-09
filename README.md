@@ -424,8 +424,6 @@ The achievements are displayed like a table and hard locked that's sorted follow
 
 ## Current Project Stack
 
-(may or may not be subject to change)
-
 **App**
 - Flutter (Dart)
 - Flame Game Engine
@@ -434,11 +432,15 @@ The achievements are displayed like a table and hard locked that's sorted follow
 - Gradle 8
 - ADB
 
-**Database**
-Website:
-- HTMl, CSS, Javascript/Typescript
-- Vue/React, Tailwind
-Backend:
+**Website**
+- HTML
+- CSS
+- Javascript
+- Vue
+- React
+- Tailwind
+
+**Backend**
 - Supabase/Postgres
 - Vercel
 
@@ -448,40 +450,42 @@ Backend:
 - Lenovo Thinkpad T470 + 16GB RAM
 - Fedora Linux 43 GNOME Workstation
 - BASH
-- Windsurf
-- VS Code
-- Chromium
-- Git + Github @ wukinnin/fitfusion
+- Git + Github
 
-## `flutter analyze` dependencies
+### flutter dependencies
 
 At time of writing (subject to change)
 ```
-$ flutter pub get
-Resolving dependencies... 
-Downloading packages... 
   app_links 6.4.1 (7.0.0 available)
+  async 2.13.0 (2.13.1 available)
   camera 0.11.4 (0.12.0+1 available)
-  camera_android_camerax 0.6.30 (0.7.1 available)
+  camera_android_camerax 0.6.30 (0.7.1+2 available)
   camera_avfoundation 0.9.23+2 (0.10.1 available)
+  cupertino_icons 1.0.8 (1.0.9 available)
+  dart_jsonwebtoken 3.3.2 (3.4.0 available)
   flame 1.35.1 (1.36.0 available)
   flame_audio 2.11.14 (2.12.0 available)
+  flutter_plugin_android_lifecycle 2.0.33 (2.0.34 available)
   google_fonts 6.3.3 (8.0.2 available)
+  gotrue 2.18.0 (2.19.0 available)
   hooks 1.0.1 (1.0.2 available)
   matcher 0.12.18 (0.12.19 available)
   meta 1.17.0 (1.18.2 available)
   native_toolchain_c 0.17.4 (0.17.6 available)
+  path_provider_android 2.2.22 (2.3.1 available)
   permission_handler 11.4.0 (12.0.1 available)
   permission_handler_android 12.1.0 (13.0.1 available)
+  realtime_client 2.7.0 (2.7.1 available)
+  shared_preferences 2.5.4 (2.5.5 available)
+  shared_preferences_android 2.4.21 (2.4.23 available)
+  shared_preferences_platform_interface 2.4.1 (2.4.2 available)
+  storage_client 2.4.1 (2.5.1 available)
+  supabase 2.10.2 (2.10.4 available)
+  supabase_flutter 2.12.0 (2.12.2 available)
   test_api 0.7.9 (0.7.11 available)
+  url_launcher_android 6.3.28 (6.3.29 available)
   vector_math 2.2.0 (2.3.0 available)
-Got dependencies!
-15 packages have newer versions incompatible with dependency constraints.
-Try `flutter pub outdated` for more information.
-
 ```
-
-Don't fix what isn't broken. This works so far, despite the outdated versions. Stability > Compatibility > Latest versions.
 
 ---
 
