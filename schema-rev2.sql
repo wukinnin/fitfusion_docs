@@ -15,7 +15,7 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 DO $$
 BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'user_role') THEN
-    CREATE TYPE public.user_role AS ENUM ('player', 'admin', 'superadmin');
+    CREATE TYPE public.user_role AS ENUM ('player', 'admin');
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'workout_type') THEN
@@ -240,7 +240,7 @@ SELECT
   created_at,
   updated_at
 FROM public.users
-WHERE role IN ('admin', 'superadmin');
+WHERE role IN ('admin');
 
 -- =========================================================
 -- END
