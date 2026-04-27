@@ -42,8 +42,10 @@ If Singleplayer, display:
 - **Jumping Jacks**
 - **Side Crunches**
 
-*Multiplayer*
-Otherwise multiplayer, display only **Jumping Jacks**. Player 1 is currently logged in. Then ask for an email address of Player 2, then email OTP PIN verification  to finally proceed. This is so session data can be reflected with player 2, and can prove account exists.
+
+If Otherwise multiplayer, display only **Jumping Jacks**. 
+
+Player 1 is currently logged in. Then ask for an email address of Player 2, then email OTP PIN verification  to finally proceed. This is so session data can be reflected with player 2, and can prove account exists.
 
 Then, options for adjusting cooldown time:
 - A slider range between 05-25 seconds.
@@ -211,7 +213,7 @@ Displays session stats:
 1. Fastest Clear time
 2. Rounds Complete = rounds played/rounds total (2/10)
     - If bonus rounds exceed 10 total, then example, 12/10, for example.
-3. Reps finished = reps performed/reps total (5/87)
+3. Reps finished = reps performed/reps total
     - If bonus rounds exceed 87 total, then example, 95/87, for example.
 4. Best Rep interval
 5. Average Rep Interval
@@ -224,7 +226,7 @@ Displays session stats
 1. ~~Fastest Clear time~~
 2. Rounds Complete = rounds played/rounds total (2/10)
     - If bonus rounds exceed 10 total, then example, 12/10, for example.
-3. Reps finished = reps performed/reps total (5/87)
+3. Reps finished = reps performed/reps total
     - If bonus rounds exceed 87 total, then example, 95/87, for example.
 4. ~~Best Rep interval~~
 5. ~~Average Rep Interval~~
