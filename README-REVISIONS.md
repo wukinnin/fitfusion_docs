@@ -58,25 +58,30 @@ The game is a linear sequence of 10 rounds. Each round have you face off against
 1. The loop begins with successful workout select parameters.
 2. Upon selection, the cooldown period begins.
 3. Then the round starts. The RED DUAL HEADED dragon appears with a health pool reflecing the number of reps, and at a large size.
-4. The player must perform reps within at least 5 seconds of each other.
+4. The player must perform reps within at least a set amount of seconds (reps interval) depending on the workout:
+    - Squats: 4 seconds
+    - Jumping Jacks: 3 seconds
+    - Side Crunches: 2 seconds
 5. Each completed rep deals damage and reduces the dragon's health, and shrinks it gradually.
 6. When the dragon's health reaches 0, the dragon returns to normal size, and then disappears.
 7. A cooldown period then ensues.
 8. After cooldown, the next round starts automatically (hands-free experience)
-9. This loops throughout the game until the 10th round, but is periodically interrupted by the bonus mechanisms:
+9. This loops throughout the game until the 10th round, but is periodically interrupted by the bonus round.
     
-**Bonus rounds gimmick**
+**Bonus rounds**
 
 1. After completing rounds 5 and 10 a bonus round appears; Cooldown period ensues as usual.
 2. A player has to complete 5 reps.
-3. Instead of a RED dragon, a GOLDEN dragon, instead in its place.
-4. Each successful bonus round = the clear time is subtracted by -5 seconds from total at the end of the session.
-5. Upon defeat, GOLDEN dragon is slain (disappears from the screen)
-6. If failed 1st bonus round (after round 5, before round 6) IS NOT A DEFEAT. Splash screen before cooldown period to proceed as normal.
-7. If failed 2nd bonus round (after round 10, before game over) IS NOT A DEFEAT. Shows splash screen before results screen.
-8. Bonus round pauses all metrics counting towards final game result; Bonus rounds not recorded.
-9. Cooldown period again upon finishing, awaiting the next round.
-10. After at least 1 victorious session, present pop-up option to toggle bonus round for the next (any) session (default == yes). Toggleable again in the settings. Any session played with bonus round does not count towards leaderboard clear times.
+3. Instead of a RED dragon, a GOLDEN dragon takes its place.
+4. A fixed timer of 15 seconds is counting down (from the rep interval timer)
+5. In the bonus round, a player is to make however many reps possible. May be 0 or more.
+6. Reps_made = -1 second to final clear time tally (if victorious session)
+7. Upon defeat, GOLDEN dragon is slain (disappears from the screen)
+8. If failed 1st bonus round (after round 5, before round 6) IS NOT A DEFEAT. Splash screen before cooldown period to proceed as normal.
+9. If failed 2nd bonus round (after round 10, before game over) IS NOT A DEFEAT. Shows splash screen before results screen.
+10. Cooldown period again upon finishing, awaiting the next round.
+11. Bonus round pauses metric for clear time, will continue as normal for the next round.
+12. Bonus rounds counts reps, and rep interval, and total round count.
 
 **REPS TO WIN; NO BONUS ROUNDS counted**
 
@@ -97,8 +102,8 @@ The game is a linear sequence of 10 rounds. Each round have you face off against
 ### Bonus Splash Screen
 - Before a cooldown period screen, and after bonus round.
 - 3 seconds duration.
-- Before bonus round: "BONUS -- Here's a chance to step up!"
-- After bonus round, success: "GREAT JOB! -0:05.00 to your clear time!"
+- Before bonus round: "BONUS -- Here's your chance to step up!"
+- After bonus round, success: "GREAT JOB! -[XX] seconds to your clear time!"
 - After bonus round, fail: "SHUCKS! Try again next time!"
 
 ## Multiplayer (Co-op)
@@ -111,16 +116,11 @@ The same generalgoes. But some differences:
 4. Players should simultaneously rep together, and do it properly to register as a rep in the game.
 5. If only 1 rep from the 2 players is detected, or both players did simultaneous reps but is done improperly, then that the rep is void.
 6. Lives system is shared amongst both players.
-7. Results are the composite of Player 1 and 2, and session data is saved with same data to different player profiles
-8. Sessions are tagged "multiplayer" tag to distinguish it from otherwise Singleplayer.
-9. Not applicable to achievements.
 
 **Multiplayer DB Storage**
-
+- Results are the composite of Player 1 and 2, and session data is copied and saved with same data to different player IDs.
 - Saves any 1 multiplayer session as two copies.
 - 2 copies registered as both player 1 and 2.
-- Session flagged as multiplayer.
-- Separate leaderboard display "[player1] and [player2]" for clear time, best rep interval.
 
 ## Dragons
 - Displayed at the center middle of the screen.
@@ -183,6 +183,19 @@ The same generalgoes. But some differences:
 | 5         | 108%                     | 100%                  |
 
 
+## Lives System
+
+### Dragon Life Steal
+- When a player lost a life, a penalty is added so that the Dragon "steals" that life, and the health, ergo, reps required is increased.
+- When a dragon steals that life, the dragon's sized is increase +8%, and the shrinking logic still continues to apply.
+- If a player loses a life at 5 out of 8 (5/8) reps, then the player will perform an extra 1 rep.
+- 5/8 is initially required, then player lost a life in the process, and will now display as 6/8.
+- The logic extends to overflow, so hypothetically, we can have 9/8 or 10/8 required reps. (+1 and +2 respectively)
+- When the last life is lost, the game ends as is established.
+- Penalty is to replenish the enemy's health, not increase the reps required.
+- The health bar may not overextend if overflown. Keep it at full until it falls below whole number (example, 7/8)
+- Can count towards results to reps d one (may overflow 87 similar bonus round logic), and lifetime reps.
+
 ## Cooldown Period
 
 - Duration: 5-30 seconds
@@ -191,6 +204,31 @@ The same generalgoes. But some differences:
 - Round 10 will not play ending cooldown period, as game is over when beaten.
 - Player can use this time to rest and prepare
 - Cooldown sequence initiates automatically — no player input required.
+
+
+### Victory
+Displays session stats:
+1. Fastest Clear time
+2. Rounds Complete = rounds played/rounds total (2/10)
+    - If bonus rounds exceed 10 total, then example, 12/10, for example.
+3. Reps finished = reps performed/reps total (5/87)
+    - If bonus rounds exceed 87 total, then example, 95/87, for example.
+4. Best Rep interval
+5. Average Rep Interval
+
+- Subtext: "You have finally slain the Red Dragon!"
+
+
+### Defeat
+Displays session stats 
+1. ~~Fastest Clear time~~
+2. Rounds Complete = rounds played/rounds total (2/10)
+    - If bonus rounds exceed 10 total, then example, 12/10, for example.
+3. Reps finished = reps performed/reps total (5/87)
+    - If bonus rounds exceed 87 total, then example, 95/87, for example.
+4. ~~Best Rep interval~~
+5. ~~Average Rep Interval~~
+- Shows "Retry" and 'Quit" button, each with "Are you sure you want to [X]?" confirmation screen
 
 
 ## Aesthetics:
@@ -212,11 +250,11 @@ Which messages in particular is randomly selected for every homescreen load.
 
 **Notifications**
 
-Also sends out push notifications at least once or twice daily between local time (0500-2300)
+Also sends out push notifications at least once (pending research on best time to send notifications)
 
-Offers options to "Remind later" and set out a random notification again within 1-2 hours.
+*note: embedded within app. also may need to change schema columns in sessions to account for last_login_timestamp, last_session_timestamp, last_app_open_timestamp*
 
-*Dialogue Sorted from good to bad disposition*
+**Dialogue Sorted from good to bad disposition**
 
 ### Praises
 
@@ -258,3 +296,7 @@ Offers options to "Remind later" and set out a random notification again within 
 - "Is anyone there? Or am I just a nobody to you? 🌫️📱"
 - "Is this... the end of our quest? I'll wait by the gate. 🏚️"
 - "I’ve forgotten the sound of a heartbeat. 💓❓"
+
+**Updating**
+
+May periodically update/refresh status after a set amount of time.
