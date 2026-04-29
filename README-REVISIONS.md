@@ -110,19 +110,26 @@ The game is a linear sequence of 10 rounds. Each round have you face off against
 
 ## Multiplayer (Co-op)
 
-The same generalgoes. But some differences:
+The same general goes, but has standout differences in logic:
 
-1. The screen is split left and right. Left is player 1 (host) and right is player 2 (guest via email OTP during workout select).
-2. Players are positioned accordingly.
-3. The game is tracking the reps of both players 1 and 2.
-4. Players should simultaneously rep together, and do it properly to register as a rep in the game.
+1. Begins multiplayer session: Player 1 is logged in, and invites Player 2 (in the same physical space) to multiplayer, and starts a session. 
+2. Player 2 enters their email address and verifies it. This is crucial so that player 2 is able to keep a record of the shared session.
+3. Multiplayer session requires 2 people to simultaneously perform reps to defeat the dragon, *as if they are one entity*
+4. The screen is split left and right. Left is player 1 and right is player 2. Players are positioned accordingly and strictly.
 5. If only 1 rep from the 2 players is detected, or both players did simultaneous reps but is done improperly, then that the rep is void.
 6. Lives system is shared amongst both players.
+7. At the end of the session Player 1 and Player 2 both keeps the same session data alongside each of their user ID and credentials (email, username attributed). The same stats are recorded. The same session ID is used. So really, the "gotcha" is that if any given session ID spawns multiple times in a row, and the difference is by a user ID, it's a multiplayer session.
 
-**Multiplayer DB Storage**
-- Results are the composite of Player 1 and 2, and session data is copied and saved with same data to different player IDs.
-- Saves any 1 multiplayer session as two copies.
-- 2 copies registered as both player 1 and 2.
+Leaderboards:
+- Separate toggle for singleplayer (default) and multiplayer above leaderboard metrics (clear time and best rep interval)
+To display entries is to jointly recognize usernames, example logic as player 1 = JANE_DOE and player 2 = JOHN_DOE:  "#1 - [JANE_DOE] and [JOHN_DOE]".
+(This applies for best  rep interval), lifetime metrics not distinguished for multiplayer)
+
+Stats:
+- Saves normally still as a one user. No multiplayer distinction or separation. Still calls session anyway.
+
+Achievements:
+- Achievement evaluation/detection is still working in multiplayer sessions. Still calls session anyway.
 
 ## Dragons
 - Displayed at the center middle of the screen.
@@ -244,7 +251,6 @@ In the homepage, we will have the **Fitness Knight.** A digital avatar that work
 
 - When user last logged in
 - When user last opened the app
-- When last session was done
 
 These are the factors that will influence the Knight to display what notes. The notes will displayed will depend on disposition of player activity. Will intelligently determine based on player stats.
 
@@ -252,53 +258,60 @@ Which messages in particular is randomly selected for every homescreen load.
 
 **Notifications**
 
-Also sends out push notifications at least once (pending research on best time to send notifications)
-
-*note: embedded within app. also may need to change schema columns in sessions to account for last_login_timestamp, last_session_timestamp, last_app_open_timestamp*
+Also sends out push notifications at least once within a time of day.
 
 **Dialogue Sorted from good to bad disposition**
 
-### Praises
+## THRESHOLD FOR SESSION =  AT LEAST MAKE IT TO ROUND 3. Otherwise, not counted.
 
-**Criteria:** Consistent activity or daily streak of at least 1 session.
+### 1 - VERY ACTIVE
 
-- "My armor is glowing from your gains! ✨🛡️"
-- "Is it getting hot in here, or is that just your fire? 🥵"
-- "Even the dragons are starting to look small to me. 🐉🤏"
-- "A sharpened blade never rusts. Good work, squire. ⚔️"
-- "Slow and steady wins the siege. Keep pushing. 🐢🏰"
-- "Consistency: The secret weapon of every hero. 🛡️✅"
+**Criteria:** At least 2 sessions done within 12 hours.
 
-### Questioned
+- "We came, We saw, we conquered. Next? ⚔️"
+- "Welcome, warrior! Ready to conquer today’s quests? 🛡️”
+- "Your strength grows with every battle. 💪"
+- "Another victory awaits—shall we begin? 🎖️"
+- "Even the dragons are starting to look small to me. 🤏"
 
-**Criteria:** Logged in/opened app multiple times, but NO session started.
 
-- "You’ve opened the app a few times. My cardio is fine—how’s yours? 🙄"
-- "Are we here to sweat, or are we here to window shop? 💅"
-- "I’ve been standing by for three hours. My back hurts. 🧘‍♂️💢"
-- "The gains don't make themselves while you scroll, friend. 🏋️‍♂️📱"
-- "My grandmother swings a mace faster than you log a set. 👵💥"
+### 2 - SOMEWHAT ACTIVE
 
-### Concerned
+**Criteria:** At least 1 session done within 12-24 hours.
 
-**Criteria:** Hasn't logged in or opened app for 48-72 hours.
+- "Another day at the office. Let’s get to work. 💼"
+- “Ah, you’ve returned. A fine day for adventure. 🏞️”
+- “The kingdom is glad to see you again. 👑”
+- “Let us continue where we left off. ⚔️”
+- "A sharpened blade never rusts. 🗡️"
 
-- "My adventures are lonely without your spirit. 🕯️"
-- "I’m thinking of auditioning for a new user. One with sneakers. 👟"
+### 3 - NEUTRAL
+
+**Criteria:** Opened app at least 1 time within 24-48 hours, but 0 sessions done.
+
+- "Standing by… awaiting your command. 🧍"
+- "I’ve been standing by for three hours. My back hurts. 🧘‍♂️"
+- "The battlefield is quiet… for now. 🤫"
+- "You’ve opened the app a few times. My cardio is fine. You? 🫀"
+- "The gains don't make themselves while you scroll, friend. 📱"
+
+### 4 - SOMEWHAT INACTIVE
+
+**Criteria:** Absent. Hasn't opened app within 48-72 hours.
+
+- "I was starting to think you got eaten by that dragon. 🐉"
 - "Consistency is the truest armor. Don't let yours rust. 🛡️"
 - "Your muscles are whispering my name. They miss me. 🥺"
-- "Did a dragon get you? Blink twice if you’re trapped in a cave. 🐉"
+- "“The flames of battle grow dim without you. 🕯️”
+- "“Have you abandoned this quest, warrior? 💔”
 
-### Inactive
+### 5 - VERY INACTIVE
 
-**Criteria:** Inactivity for 1+ weeks.
+**Criteria:** Missing. Hasn't opened app for 72+ hours.
 
-- "I am eating my own leather boots for sustenance. 👢💀"
-- "Dust. So much dust. I think a spider lives in my helmet now. 🕷️"
+- “Even the strongest knights must rest… you now, in peace. 🪦”
+- “Will you rise again… or shall the story end here? 📕”
 - "Is anyone there? Or am I just a nobody to you? 🌫️📱"
 - "Is this... the end of our quest? I'll wait by the gate. 🏚️"
-- "I’ve forgotten the sound of a heartbeat. 💓❓"
+- "I’ve forgotten the sound of a heartbeat. 💓"
 
-**Updating**
-
-May periodically update/refresh status after a set amount of time.
